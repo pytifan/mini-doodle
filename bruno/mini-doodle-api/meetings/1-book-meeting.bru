@@ -24,7 +24,7 @@ body:json {
 
 script:post-response {
   if (res.status === 201) {
-    bru.setVar("meetingId", res.body.id);
+    bru.setEnvVar("meetingId", res.body.id);
   }
 }
 

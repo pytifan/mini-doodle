@@ -56,7 +56,8 @@ public class UserService {
 
     @Transactional(readOnly = true)
     public Page<UserDto.Response> listUsers(Pageable pageable) {
-        return userRepository.findAll(pageable).map(this::toResponse);
+        Page<User> all = userRepository.findAll(pageable);
+        return all.map(this::toResponse);
     }
 
     public User findUserOrThrow(Long userId) {

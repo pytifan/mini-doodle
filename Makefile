@@ -2,28 +2,28 @@
 
 ## Build and run with Docker Compose
 run:
-	docker-compose up --build -d
+	docker compose up --build -d
 
 ## Stop all containers
 stop:
-	docker-compose down
+	docker compose down
 
 ## Stop and remove volumes
 clean:
-	docker-compose down -v
+	docker compose down -v
 
 ## View logs
 logs:
-	docker-compose logs -f app
+	docker compose logs -f app
 
-## Run tests locally (requires Docker for Testcontainers)
+## Run tests locally (requires Maven + Docker for Testcontainers)
 test:
-	./mvnw test
+	mvn test
 
 ## Run integration tests
 integration-test:
-	./mvnw verify
+	mvn verify
 
 ## Build JAR only
 build:
-	./mvnw package -DskipTests
+	mvn package -DskipTests

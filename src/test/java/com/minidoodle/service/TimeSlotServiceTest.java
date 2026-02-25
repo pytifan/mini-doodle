@@ -104,9 +104,6 @@ class TimeSlotServiceTest {
             var request = TimeSlotDto.CreateRequest.builder()
                     .startTime(END).endTime(START).build();
 
-            when(userService.findUserOrThrow(1L)).thenReturn(testUser);
-            when(calendarRepository.findByUserId(1L)).thenReturn(Optional.of(testCalendar));
-
             assertThatThrownBy(() -> timeSlotService.createSlot(1L, request))
                     .isInstanceOf(BusinessRuleException.class)
                     .hasMessageContaining("End time must be after start time");

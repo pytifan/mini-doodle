@@ -22,8 +22,9 @@ public class OpenApiConfig {
                         .contact(new Contact()
                                 .name("Mini Doodle")
                                 .email("support@minidoodle.com")))
-                .servers(List.of(
-                        new Server().url("http://localhost:8080").description("Local development")
+                .servers(List.of(new Server()
+                        .url("http://localhost:8080")
+                        .description("Local development")
                 ));
     }
 }

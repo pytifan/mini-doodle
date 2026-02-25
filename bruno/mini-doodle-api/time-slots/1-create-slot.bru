@@ -23,7 +23,7 @@ body:json {
 
 script:post-response {
   if (res.status === 201) {
-    bru.setVar("slotId", res.body.id);
+    bru.setEnvVar("slotId", res.body.id);
   }
 }
 

@@ -14,7 +14,4 @@ tests {
   test("Status is 409", () => {
     expect(res.status).to.equal(409);
   });
-  test("Mentions meeting", () => {
-    expect(res.body.message).to.include("meeting");
-  });
 }

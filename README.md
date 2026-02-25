@@ -153,9 +153,9 @@ curl "http://localhost:8080/api/v1/users/1/availability?from=2025-03-01T00:00:00
 
 ## Testing
 
-Run tests locally (requires Docker for Testcontainers):
+Run tests locally (requires Maven and Docker for Testcontainers):
 ```bash
-./mvnw test
+mvn test
 ```
 
 ## Project Structure
