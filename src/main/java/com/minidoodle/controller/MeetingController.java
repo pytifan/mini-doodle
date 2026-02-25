@@ -27,7 +27,8 @@ public class MeetingController {
             @PathVariable Long userId,
             @PathVariable Long slotId,
             @Valid @RequestBody MeetingDto.CreateRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED)
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
                 .body(meetingService.createMeeting(userId, slotId, request));
     }
 
@@ -36,7 +37,8 @@ public class MeetingController {
     public ResponseEntity<Page<MeetingDto.Response>> listMeetings(
             @PathVariable Long userId,
             @PageableDefault(size = 20) Pageable pageable) {
-        return ResponseEntity.ok(meetingService.listMeetings(userId, pageable));
+        return ResponseEntity
+                .ok(meetingService.listMeetings(userId, pageable));
     }
 
     @GetMapping("/meetings/{meetingId}")
@@ -44,7 +46,8 @@ public class MeetingController {
     public ResponseEntity<MeetingDto.Response> getMeeting(
             @PathVariable Long userId,
             @PathVariable Long meetingId) {
-        return ResponseEntity.ok(meetingService.getMeeting(userId, meetingId));
+        return ResponseEntity
+                .ok(meetingService.getMeeting(userId, meetingId));
     }
 
     @PutMapping("/meetings/{meetingId}")
@@ -53,7 +56,8 @@ public class MeetingController {
             @PathVariable Long userId,
             @PathVariable Long meetingId,
             @Valid @RequestBody MeetingDto.UpdateRequest request) {
-        return ResponseEntity.ok(meetingService.updateMeeting(userId, meetingId, request));
+        return ResponseEntity
+                .ok(meetingService.updateMeeting(userId, meetingId, request));
     }
 
     @DeleteMapping("/meetings/{meetingId}")
@@ -62,6 +66,7 @@ public class MeetingController {
             @PathVariable Long userId,
             @PathVariable Long meetingId) {
         meetingService.cancelMeeting(userId, meetingId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity
+                .noContent().build();
     }
 }
