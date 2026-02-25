@@ -1,0 +1,23 @@
+meta {
+  name: 4. Verify Slot is BUSY after Booking
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{baseUrl}}/api/v1/users/{{userId}}/slots/{{slot2Id}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status is 200", () => {
+    expect(res.status).to.equal(200);
+  });
+  test("Slot is BUSY", () => {
+    expect(res.body.status).to.equal("BUSY");
+  });
+  test("Has meeting", () => {
+    expect(res.body.hasMeeting).to.equal(true);
+  });
+}

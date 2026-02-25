@@ -1,0 +1,32 @@
+meta {
+  name: 1. Query Full Day Availability
+  type: http
+  seq: 1
+}
+
+get {
+  url: {{baseUrl}}/api/v1/users/{{userId}}/availability?from=2025-03-03T00:00:00&to=2025-03-03T23:59:59
+  body: none
+  auth: none
+}
+
+params:query {
+  from: 2025-03-03T00:00:00
+  to: 2025-03-03T23:59:59
+}
+
+tests {
+  test("Status is 200", () => {
+    expect(res.status).to.equal(200);
+  });
+  test("Has aggregated data", () => {
+    expect(res.body.totalSlots).to.exist;
+    expect(res.body.freeSlots).to.exist;
+    expect(res.body.busySlots).to.exist;
+    expect(res.body.slots).to.be.an("array");
+    expect(res.body.userName).to.exist;
+  });
+  test("Counts add up", () => {
+    expect(res.body.freeSlots + res.body.busySlots).to.equal(res.body.totalSlots);
+  });
+}

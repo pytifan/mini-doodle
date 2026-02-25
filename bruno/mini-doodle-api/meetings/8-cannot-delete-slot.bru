@@ -1,0 +1,20 @@
+meta {
+  name: 8. Cannot Delete Slot with Meeting (409)
+  type: http
+  seq: 8
+}
+
+delete {
+  url: {{baseUrl}}/api/v1/users/{{userId}}/slots/{{slot2Id}}
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status is 409", () => {
+    expect(res.status).to.equal(409);
+  });
+  test("Mentions meeting", () => {
+    expect(res.body.message).to.include("meeting");
+  });
+}

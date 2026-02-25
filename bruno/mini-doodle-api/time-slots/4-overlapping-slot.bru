@@ -1,0 +1,31 @@
+meta {
+  name: 4. Create Slot - Overlapping (409)
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{baseUrl}}/api/v1/users/{{userId}}/slots
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "startTime": "2025-03-03T09:30:00",
+    "endTime": "2025-03-03T10:30:00"
+  }
+}
+
+tests {
+  test("Status is 409 Conflict", () => {
+    expect(res.status).to.equal(409);
+  });
+  test("Mentions overlap", () => {
+    expect(res.body.message).to.include("overlap");
+  });
+}

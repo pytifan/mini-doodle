@@ -1,0 +1,17 @@
+meta {
+  name: 2. Prometheus Metrics
+  type: http
+  seq: 2
+}
+
+get {
+  url: {{baseUrl}}/actuator/prometheus
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status is 200", () => {
+    expect(res.status).to.equal(200);
+  });
+}

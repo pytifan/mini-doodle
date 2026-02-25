@@ -1,0 +1,17 @@
+meta {
+  name: 7. Get User - Not Found (404)
+  type: http
+  seq: 7
+}
+
+get {
+  url: {{baseUrl}}/api/v1/users/9999
+  body: none
+  auth: none
+}
+
+tests {
+  test("Status is 404", () => {
+    expect(res.status).to.equal(404);
+  });
+}

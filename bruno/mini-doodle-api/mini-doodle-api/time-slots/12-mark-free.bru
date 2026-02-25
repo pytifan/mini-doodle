@@ -1,0 +1,30 @@
+meta {
+  name: 12. Mark Slot as FREE
+  type: http
+  seq: 12
+}
+
+patch {
+  url: {{baseUrl}}/api/v1/users/{{userId}}/slots/{{slot3Id}}/status
+  body: json
+  auth: none
+}
+
+headers {
+  Content-Type: application/json
+}
+
+body:json {
+  {
+    "status": "FREE"
+  }
+}
+
+tests {
+  test("Status is 200", () => {
+    expect(res.status).to.equal(200);
+  });
+  test("Status is FREE", () => {
+    expect(res.body.status).to.equal("FREE");
+  });
+}
