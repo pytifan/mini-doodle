@@ -67,14 +67,15 @@ public class MeetingService {
 
     @Transactional(readOnly = true)
     public MeetingDto.Response getMeeting(Long userId, Long meetingId) {
-        Meeting meeting = findMeetingOrThrow(meetingId, userId);
+        Meeting meeting = meetingRepository.findByIdForUser(meetingId, userId)
+                .orElseThrow(() -> new ResourceNotFoundException("Meeting", meetingId));
         return toResponse(meeting);
     }
 
     @Transactional(readOnly = true)
     public Page<MeetingDto.Response> listMeetings(Long userId, Pageable pageable) {
         userService.findUserOrThrow(userId);
-        return meetingRepository.findByOrganizerId(userId, pageable).map(this::toResponse);
+        return meetingRepository.findByOrganizerOrParticipant(userId, pageable).map(this::toResponse);
     }
 
     @Transactional
@@ -98,11 +99,8 @@ public class MeetingService {
     public void cancelMeeting(Long userId, Long meetingId) {
         Meeting meeting = findMeetingOrThrow(meetingId, userId);
 
-        // Free up the time slot
-        TimeSlot slot = meeting.getTimeSlot();
-        slot.setStatus(SlotStatus.FREE);
-        slot.setMeeting(null);
-
+        // Free up the time slot, then delete the meeting
+        meeting.getTimeSlot().setStatus(SlotStatus.FREE);
         meetingRepository.delete(meeting);
         log.info("Cancelled meeting {} for user {}", meetingId, userId);
     }
