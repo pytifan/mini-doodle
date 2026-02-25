@@ -46,14 +46,4 @@ public class Calendar {
     @UpdateTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
-
-    public void addTimeSlot(TimeSlot slot) {
-        timeSlots.add(slot);
-        slot.setCalendar(this);
-    }
-
-    public void removeTimeSlot(TimeSlot slot) {
-        timeSlots.remove(slot);
-        slot.setCalendar(null);
-    }
 }

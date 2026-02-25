@@ -24,18 +24,22 @@ public class UserController {
     @PostMapping
     @Operation(summary = "Create a new user", description = "Creates a user and auto-provisions their calendar")
     public ResponseEntity<UserDto.Response> createUser(@Valid @RequestBody UserDto.CreateRequest request) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(userService.createUser(request));
+        return ResponseEntity
+                .status(HttpStatus.CREATED)
+                .body(userService.createUser(request));
     }
 
     @GetMapping("/{userId}")
     @Operation(summary = "Get user by ID")
     public ResponseEntity<UserDto.Response> getUser(@PathVariable Long userId) {
-        return ResponseEntity.ok(userService.getUser(userId));
+        return ResponseEntity
+                .ok(userService.getUser(userId));
     }
 
     @GetMapping
     @Operation(summary = "List all users", description = "Returns paginated list of all users")
     public ResponseEntity<Page<UserDto.Response>> listUsers(@PageableDefault(size = 20) Pageable pageable) {
-        return ResponseEntity.ok(userService.listUsers(pageable));
+        return ResponseEntity
+                .ok(userService.listUsers(pageable));
     }
 }

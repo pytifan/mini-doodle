@@ -11,8 +11,8 @@ Mini Doodle enables users to manage their time slots, schedule meetings, and vie
 ### Domain Model
 
 ```
-User ──── Calendar ──── TimeSlot ──── Meeting
-                                       │
+User ─> Calendar ─> TimeSlot ─> Meeting
+                                     |
                                   Participant
 ```
 
@@ -57,7 +57,7 @@ User ──── Calendar ──── TimeSlot ──── Meeting
 ### Running the Application
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 The service will be available at `http://localhost:8080`.

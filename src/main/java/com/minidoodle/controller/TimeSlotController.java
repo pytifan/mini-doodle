@@ -46,7 +46,8 @@ public class TimeSlotController {
             @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             @Parameter(description = "End of time range (ISO 8601)") LocalDateTime to,
             @PageableDefault(size = 20) Pageable pageable) {
-        return ResponseEntity.ok(timeSlotService.listSlots(userId, status, from, to, pageable));
+        return ResponseEntity
+                .ok(timeSlotService.listSlots(userId, status, from, to, pageable));
     }
 
     @GetMapping("/slots/{slotId}")
@@ -54,7 +55,8 @@ public class TimeSlotController {
     public ResponseEntity<TimeSlotDto.Response> getSlot(
             @PathVariable Long userId,
             @PathVariable Long slotId) {
-        return ResponseEntity.ok(timeSlotService.getSlot(userId, slotId));
+        return ResponseEntity
+                .ok(timeSlotService.getSlot(userId, slotId));
     }
 
     @PutMapping("/slots/{slotId}")
@@ -63,7 +65,8 @@ public class TimeSlotController {
             @PathVariable Long userId,
             @PathVariable Long slotId,
             @Valid @RequestBody TimeSlotDto.UpdateRequest request) {
-        return ResponseEntity.ok(timeSlotService.updateSlot(userId, slotId, request));
+        return ResponseEntity
+                .ok(timeSlotService.updateSlot(userId, slotId, request));
     }
 
     @PatchMapping("/slots/{slotId}/status")
@@ -72,7 +75,8 @@ public class TimeSlotController {
             @PathVariable Long userId,
             @PathVariable Long slotId,
             @Valid @RequestBody TimeSlotDto.StatusRequest request) {
-        return ResponseEntity.ok(timeSlotService.updateSlotStatus(userId, slotId, request));
+        return ResponseEntity
+                .ok(timeSlotService.updateSlotStatus(userId, slotId, request));
     }
 
     @DeleteMapping("/slots/{slotId}")
@@ -81,7 +85,8 @@ public class TimeSlotController {
             @PathVariable Long userId,
             @PathVariable Long slotId) {
         timeSlotService.deleteSlot(userId, slotId);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity
+                .noContent().build();
     }
 
     @GetMapping("/availability")
@@ -93,6 +98,7 @@ public class TimeSlotController {
             @Parameter(description = "Start of time frame (ISO 8601)", required = true) LocalDateTime from,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
             @Parameter(description = "End of time frame (ISO 8601)", required = true) LocalDateTime to) {
-        return ResponseEntity.ok(timeSlotService.getAvailability(userId, from, to));
+        return ResponseEntity
+                .ok(timeSlotService.getAvailability(userId, from, to));
     }
 }

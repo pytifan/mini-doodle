@@ -36,7 +36,9 @@ class MiniDoodleIntegrationTest {
     void fullWorkflow() throws Exception {
         // 1. Create organizer
         var createAlice = UserDto.CreateRequest.builder()
-                .name("Alice").email("alice-integration@example.com").build();
+                .name("Alice")
+                .email("alice-integration@example.com")
+                .build();
         MvcResult aliceResult = mockMvc.perform(post("/api/v1/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(createAlice)))
@@ -44,7 +46,7 @@ class MiniDoodleIntegrationTest {
                 .andExpect(jsonPath("$.name").value("Alice"))
                 .andReturn();
 
-        Long aliceId = objectMapper.readTree(aliceResult.getResponse().getContentAsString())
+        long aliceId = objectMapper.readTree(aliceResult.getResponse().getContentAsString())
                 .get("id").asLong();
 
         // 2. Create participant
@@ -57,7 +59,8 @@ class MiniDoodleIntegrationTest {
                 .andReturn();
 
         Long bobId = objectMapper.readTree(bobResult.getResponse().getContentAsString())
-                .get("id").asLong();
+                .get("id")
+                .asLong();
 
         // 3. Create time slots for Alice
         LocalDateTime slot1Start = LocalDateTime.of(2025, 6, 15, 9, 0);
@@ -75,19 +78,22 @@ class MiniDoodleIntegrationTest {
                 .andExpect(jsonPath("$.durationMinutes").value(60))
                 .andReturn();
 
-        Long slot1Id = objectMapper.readTree(slot1Result.getResponse().getContentAsString())
+        long slot1Id = objectMapper.readTree(slot1Result.getResponse().getContentAsString())
                 .get("id").asLong();
 
         var slotReq2 = TimeSlotDto.CreateRequest.builder()
-                .startTime(slot2Start).endTime(slot2End).build();
+                .startTime(slot2Start)
+                .endTime(slot2End)
+                .build();
         MvcResult slot2Result = mockMvc.perform(post("/api/v1/users/" + aliceId + "/slots")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(slotReq2)))
                 .andExpect(status().isCreated())
                 .andReturn();
 
-        Long slot2Id = objectMapper.readTree(slot2Result.getResponse().getContentAsString())
-                .get("id").asLong();
+        long slot2Id = objectMapper.readTree(slot2Result.getResponse().getContentAsString())
+                .get("id")
+                .asLong();
 
         // 4. Verify overlapping slot is rejected
         var overlappingSlot = TimeSlotDto.CreateRequest.builder()
@@ -120,7 +126,7 @@ class MiniDoodleIntegrationTest {
                 .andExpect(jsonPath("$.organizer.name").value("Alice"))
                 .andReturn();
 
-        Long meetingId = objectMapper.readTree(meetingResult.getResponse().getContentAsString())
+        long meetingId = objectMapper.readTree(meetingResult.getResponse().getContentAsString())
                 .get("id").asLong();
 
         // 7. Verify slot 1 is now BUSY
