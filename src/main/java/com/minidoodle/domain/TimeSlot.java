@@ -38,7 +38,7 @@ public class TimeSlot {
     @Builder.Default
     private SlotStatus status = SlotStatus.FREE;
 
-    @OneToOne(mappedBy = "timeSlot", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    @OneToOne(mappedBy = "timeSlot", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY, orphanRemoval = true)
     private Meeting meeting;
 
     @CreationTimestamp
